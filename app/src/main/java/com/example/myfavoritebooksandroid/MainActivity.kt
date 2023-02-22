@@ -1,11 +1,12 @@
 package com.example.myfavoritebooksandroid
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myfavoritebooksandroid.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), FavoriteBooksClickListenerClickListener {
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,8 +19,15 @@ class MainActivity : AppCompatActivity() {
         val mainActivity = this
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(applicationContext, 3)
-            adapter = CardAdapter(booklist)
+            adapter = CardAdapter(booklist, mainActivity)
         }
+    }
+
+
+    override fun onClick(myBooks: Books) {
+        val intent = Intent(applicationContext, DetailActivity::class.java)
+        intent.putExtra(BOOK_ID_DETAILS, myBooks.id)
+        startActivity(intent)
     }
 
     private fun populateBooks() {
@@ -134,4 +142,6 @@ class MainActivity : AppCompatActivity() {
         )
         booklist.add(book10)
     }
+
+
 }

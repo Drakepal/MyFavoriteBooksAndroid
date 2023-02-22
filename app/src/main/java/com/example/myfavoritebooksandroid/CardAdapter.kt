@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myfavoritebooksandroid.databinding.BookCardCellBinding
 
-class CardAdapter(private val myBooks: List<Books>) : RecyclerView.Adapter<CardViewHolder>() {
+class CardAdapter(private val myBooks: List<Books>,
+private val clickListener: FavoriteBooksClickListenerClickListener)
+    : RecyclerView.Adapter<CardViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         val from = LayoutInflater.from(parent.context)
         val binding = BookCardCellBinding.inflate(from, parent, false)
-        return CardViewHolder(binding)
+        return CardViewHolder(binding, clickListener)
     }
 
     override fun getItemCount(): Int = myBooks.size
