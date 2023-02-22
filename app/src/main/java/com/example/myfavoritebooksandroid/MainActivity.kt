@@ -2,13 +2,24 @@ package com.example.myfavoritebooksandroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.myfavoritebooksandroid.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         populateBooks()
+
+        val mainActivity = this
+        binding.recyclerView.apply {
+            layoutManager = GridLayoutManager(applicationContext, 3)
+            adapter = CardAdapter(booklist)
+        }
     }
 
     private fun populateBooks() {
